@@ -2,3 +2,6 @@
 /service/ /pages/Service.html 200
 /cases /pages/cases.html 200
 /cases/ /pages/cases.html 200
+# 确保静态资源路径不被重定向（如果你的 JS 在根目录）
+/company-logos.js /company-logos.js 200
+/logos.png /logo.png 200
