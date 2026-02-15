@@ -80,6 +80,8 @@ export default defineConfig(({ mode }) => {
       },
       // ⬇️⬇️⬇️ 核心修复：添加多页面入口配置 ⬇️⬇️⬇️
       build: {
+        outDir: 'dist',
+        assetsDir: 'assets',
         rollupOptions: {
           input: {
             main: resolve(__dirname, 'index.html'),
@@ -89,6 +91,8 @@ export default defineConfig(({ mode }) => {
             // map: resolve(__dirname, 'public/pages/map.html'),
           },
         },
+        // 确保 public 目录的文件被正确复制
+        copyPublicDir: true,
       },
     };
 });
