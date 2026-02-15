@@ -4,7 +4,6 @@ import { Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { projectToVector3 } from '../utils/geo';
 
-// --- 接口定义 ---
 interface Company {
   name: string;
   type: string;
@@ -28,7 +27,7 @@ interface TechMarkerProps extends MarkerData {
   onDeactivate: () => void;
 }
 
-// --- 数据配置 ---
+// 目标城市列表保持不变...
 const TARGET_CITIES: MarkerData[] = [
   { 
     name: 'Beijing', lat: 39.9042, lon: 116.4074, subtitle: 'Capital City', height: 5.5, align: 'right',
@@ -53,7 +52,10 @@ const TARGET_CITIES: MarkerData[] = [
       { name: 'Ecovacs', type: 'Robotics', desc: 'Service robotics & smart home.' },
       { name: 'iFlytek', type: 'AI', desc: 'Intelligent speech & AI processing.' },
       { name: 'AUO', type: 'Display', desc: 'AU Optronics display solutions.' },
-      { name: 'Huawei', type: 'R&D', desc: 'ICT infrastructure research center.' }
+      { name: 'Huawei', type: 'R&D', desc: 'ICT infrastructure research center.' },
+      { name: 'GCL Group', type: 'Energy', desc: 'Green & clean energy services.' },
+      { name: 'Siemens', type: 'Industrial', desc: 'Automation & digitalization.' },
+      { name: 'Bosch', type: 'Automotive', desc: 'Mobility solutions & parts.' }
     ]
   },
   { 
@@ -61,7 +63,9 @@ const TARGET_CITIES: MarkerData[] = [
     companies: [
       { name: 'Alibaba', type: 'Tech Giant', desc: 'Global e-commerce & cloud computing.' },
       { name: 'Geely', type: 'Automotive', desc: 'Mobility technology & EV innovation.' },
-      { name: 'NetEase', type: 'Internet', desc: 'Content, gaming & communications.' }
+      { name: 'NetEase', type: 'Internet', desc: 'Content, gaming & communications.' },
+      { name: 'Joyoung', type: 'Appliances', desc: 'Kitchen appliance pioneer.' },
+      { name: 'Holley', type: 'Manufacturing', desc: 'Smart metering & health.' }
     ]
   },
   { 
@@ -69,7 +73,9 @@ const TARGET_CITIES: MarkerData[] = [
     companies: [
       { name: 'Tencent', type: 'Internet', desc: 'Social, gaming & fintech giant.' },
       { name: 'DJI', type: 'Robotics', desc: 'World leader in civilian drones.' },
-      { name: 'Ping An', type: 'Finance', desc: 'Tech-powered financial services.' }
+      { name: 'Foxconn II', type: 'Smart Mfg', desc: 'Industrial Internet & manufacturing.' },
+      { name: 'Ping An', type: 'Finance', desc: 'Tech-powered financial services.' },
+      { name: 'CMB', type: 'Fintech', desc: 'China Merchants Bank.' }
     ]
   },
   { 
@@ -89,14 +95,14 @@ const TARGET_CITIES: MarkerData[] = [
   }
 ];
 
-// --- 预编译共享资源 ---
+// 🚀 核心优化：预编译共享的几何体和材质，彻底消除内存冗余
 const SHARED_GEOMETRIES = {
-  hitArea: new THREE.CylinderGeometry(1.2, 1.2, 1, 8),
-  coreCircle: new THREE.CircleGeometry(0.18, 32),
-  diffuseRing: new THREE.RingGeometry(0.25, 0.45, 32),
-  outerRing: new THREE.RingGeometry(0.55, 0.62, 32, 1, 0, Math.PI * 1.5),
-  beamCylinder: new THREE.CylinderGeometry(0.04, 0.04, 1, 8),
-  haloBase: new THREE.CylinderGeometry(0.12, 0.0, 1, 8),
+  hitArea: new THREE.CylinderGeometry(1.0, 1.0, 1, 8), // 高度 1，使用时用 scale.y 放大
+  coreCircle: new THREE.CircleGeometry(0.15, 32),
+  diffuseRing: new THREE.RingGeometry(0.2, 0.4, 32),
+  outerRing: new THREE.RingGeometry(0.5, 0.55, 32, 1, 0, Math.PI * 1.5),
+  beamCylinder: new THREE.CylinderGeometry(0.03, 0.03, 1, 8), // 高度 1
+  haloBase: new THREE.CylinderGeometry(0.1, 0.0, 1, 8),
 };
 
 const SHARED_MATERIALS = {
@@ -110,13 +116,15 @@ const SHARED_MATERIALS = {
   invisible: new THREE.MeshBasicMaterial({ visible: false })
 };
 
-// --- 子组件: 标记点 ---
+
 const TechMarker: React.FC<TechMarkerProps> = ({ 
   name, lat, lon, subtitle, height, align, companies, 
   isActive, isDimmed, onActivate, onDeactivate 
 }) => {
   const position = useMemo(() => projectToVector3(lon, lat), [lon, lat]);
   const ringRef = useRef<THREE.Group>(null);
+  
+  // Timeout ref to handle debounce
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handlePointerEnter = (e?: any) => {
@@ -152,7 +160,8 @@ const TechMarker: React.FC<TechMarkerProps> = ({
 
   return (
     <group position={[position.x, position.y, 0]}>
-      {/* 交互热区 */}
+      
+      {/* 🚀 使用共享几何体并通过 scale 动态调整高度 */}
       <mesh 
         position={[0, 0, beamZ]} 
         rotation={[Math.PI / 2, 0, 0]}
@@ -163,17 +172,30 @@ const TechMarker: React.FC<TechMarkerProps> = ({
         onPointerOut={handlePointerLeave}
       />
 
-      {/* 地面底座 */}
+      {/* 1. 地面目标定位圈 (Target Base) */}
       <group>
-        <mesh position={[0, 0, 0.05]} geometry={SHARED_GEOMETRIES.coreCircle} material={showDetails ? SHARED_MATERIALS.coreActive : SHARED_MATERIALS.coreNormal} />
-        <mesh position={[0, 0, 0.02]} geometry={SHARED_GEOMETRIES.diffuseRing} material={SHARED_MATERIALS.diffuse} />
+        <mesh 
+          position={[0, 0, 0.05]} 
+          geometry={SHARED_GEOMETRIES.coreCircle}
+          material={showDetails ? SHARED_MATERIALS.coreActive : SHARED_MATERIALS.coreNormal}
+        />
+        <mesh 
+          position={[0, 0, 0.02]} 
+          geometry={SHARED_GEOMETRIES.diffuseRing}
+          material={SHARED_MATERIALS.diffuse}
+        />
         <group ref={ringRef}>
-            <mesh position={[0, 0, 0.03]} geometry={SHARED_GEOMETRIES.outerRing} material={SHARED_MATERIALS.outerRing} />
+            <mesh 
+              position={[0, 0, 0.03]} 
+              geometry={SHARED_GEOMETRIES.outerRing}
+              material={SHARED_MATERIALS.outerRing}
+            />
         </group>
       </group>
 
-      {/* 垂直引线 */}
+      {/* 2. 垂直引线 (Vertical Beam) */}
       <group>
+         {/* 主光束：通过 scale.y 适配 height */}
          <mesh 
            position={[0, 0, beamZ]} 
            rotation={[Math.PI / 2, 0, 0]}
@@ -181,15 +203,22 @@ const TechMarker: React.FC<TechMarkerProps> = ({
            geometry={SHARED_GEOMETRIES.beamCylinder}
            material={showDetails ? SHARED_MATERIALS.beamActive : SHARED_MATERIALS.beamNormal}
          />
-         <mesh position={[0, 0, 0.5]} rotation={[Math.PI / 2, 0, 0]} geometry={SHARED_GEOMETRIES.haloBase} material={SHARED_MATERIALS.halo} />
+         
+         {/* 底部光晕柱 */}
+         <mesh 
+           position={[0, 0, 0.5]} 
+           rotation={[Math.PI / 2, 0, 0]}
+           geometry={SHARED_GEOMETRIES.haloBase}
+           material={SHARED_MATERIALS.halo}
+         />
       </group>
 
-      {/* 悬浮标签 (大字体优化版) */}
+      {/* 3. 悬浮信息标签 (Floating Label) 保持你极美的 Tailwind 样式不变 */}
       <Html 
         position={[0, 0, height]} 
         center 
-        distanceFactor={10} 
-        zIndexRange={showDetails ? [1000000, 1000000] : (isDimmed ? [10, 0] : [100, 0])}
+        distanceFactor={12} 
+        zIndexRange={showDetails ? [100000000, 100000000] : (isDimmed ? [10, 0] : [100, 0])}
         style={{ pointerEvents: 'none', whiteSpace: 'nowrap' }} 
       >
         <div 
@@ -199,47 +228,47 @@ const TechMarker: React.FC<TechMarkerProps> = ({
             style={{ 
                 pointerEvents: 'auto', 
                 transform: align === 'left' 
-                    ? 'translateX(-50%) translateX(-20px)' 
-                    : 'translateX(50%) translateX(20px)',
-                opacity: isDimmed ? 0.2 : 1, 
+                    ? 'translateX(-50%) translateX(-10px)' 
+                    : 'translateX(50%) translateX(10px)',
+                opacity: isDimmed ? 0.15 : 1, 
                 filter: isDimmed ? 'grayscale(100%) blur(1px)' : 'none', 
+                zIndex: showDetails ? 100000000 : 'auto'
             }}
         >
-            {/* 连接横线 */}
-            <div className={`w-12 h-[2px] mt-4 bg-blue-500/80 shadow-[0_0_8px_rgba(59,130,246,0.8)] transition-all duration-300 ${showDetails ? 'bg-blue-600 w-16' : ''}`}></div>
+            {/* 连接线 */}
+            <div className={`w-8 h-[1px] mt-3 bg-blue-500/70 shadow-[0_0_5px_rgba(59,130,246,0.8)] transition-all duration-300 ${showDetails ? 'bg-blue-600 w-12' : ''}`}></div>
             
-            {/* 信息主体 */}
+            {/* 信息卡片 */}
             <div className={`
-                relative bg-white/95 backdrop-blur-2xl border-y border-blue-400/50 py-3 px-5 text-left shadow-[0_10px_40px_rgba(59,130,246,0.35)]
+                relative bg-white/95 backdrop-blur-xl border-y border-blue-400/50 py-1.5 px-2.5 text-left shadow-[0_4px_20px_rgba(59,130,246,0.3)]
                 transition-all duration-300 ease-out origin-top
-                ${align === 'left' ? 'border-r-[6px] border-r-blue-600 pr-6' : 'border-l-[6px] border-l-blue-600 pl-6'}
-                ${showDetails ? 'scale-110 z-50 min-w-[340px]' : 'scale-100 min-w-[180px]'}
+                ${align === 'left' ? 'border-r-2 border-r-blue-500 pr-2.5' : 'border-l-2 border-l-blue-500 pl-2.5'}
+                ${showDetails ? 'scale-105 z-50 min-w-[240px]' : 'scale-100 min-w-[100px]'}
             `}>
-                <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
+                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500/60 to-transparent"></div>
                 
-                {/* 城市大标题 */}
-                <h1 className="text-2xl font-black text-gray-900 leading-none tracking-wider font-sans mb-1.5 drop-shadow-sm">
+                <h1 className="text-xl font-black text-gray-900 leading-none tracking-wide font-sans mb-0.5 drop-shadow-sm">
                     {name.toUpperCase()}
                 </h1>
 
                 {!showDetails && (
-                  <div className="flex items-center gap-2.5">
-                       <div className="h-2 w-2 rounded-full bg-blue-500 animate-pulse"></div>
-                       <p className="text-xs text-blue-600 font-bold uppercase tracking-[0.25em]">
+                  <div className="flex items-center gap-1.5">
+                       <div className="h-0.5 w-0.5 rounded-full bg-blue-500 animate-pulse"></div>
+                       <p className="text-xs text-blue-600 font-mono uppercase tracking-[0.15em]">
                           {subtitle}
                       </p>
                   </div>
                 )}
 
                 {showDetails && (
-                  <div className="mt-4 flex flex-col gap-4 max-h-[280px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-blue-400">
+                  <div className="mt-1.5 flex flex-col gap-1.5 max-h-[180px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-blue-400/50 scrollbar-track-blue-100">
                     {companies.map((company, idx) => (
-                      <div key={idx} className="border-l-2 border-blue-200 pl-4 py-1.5 hover:border-blue-500 transition-colors group">
-                        <div className="flex justify-between items-baseline gap-3">
-                          <span className="text-blue-700 font-extrabold text-base group-hover:text-blue-600 transition-colors">{company.name}</span>
-                          <span className="text-[11px] font-bold text-gray-600 bg-blue-100/80 px-2 py-0.5 rounded border border-blue-200 uppercase">{company.type}</span>
+                      <div key={idx} className="border-l-2 border-blue-300 pl-1.5 py-0.5 group">
+                        <div className="flex justify-between items-baseline gap-1">
+                          <span className="text-blue-600 font-bold text-sm">{company.name}</span>
+                          <span className="text-xs text-gray-600 bg-blue-100 px-1 rounded">{company.type}</span>
                         </div>
-                        <p className="text-sm text-gray-600 leading-relaxed mt-1.5 font-medium opacity-90">
+                        <p className="text-[13px] text-gray-700 leading-tight mt-0.5 opacity-90">
                           {company.desc}
                         </p>
                       </div>
@@ -253,7 +282,6 @@ const TechMarker: React.FC<TechMarkerProps> = ({
   );
 };
 
-// --- 主导出组件 ---
 export const MapMarkers: React.FC = () => {
   const [activeMarker, setActiveMarker] = useState<string | null>(null);
 
