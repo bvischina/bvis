@@ -1,0 +1,15 @@
+# Cloudflare Pages 构建配置
+build:
+  command: npm run build
+  output: dist
+  
+# 环境变量
+env:
+  NODE_VERSION: "18"
+  
+# 路由配置
+routes:
+  - path: /service
+    file: pages/Service.html
+  - path: /cases
+    file: pages/cases.html
