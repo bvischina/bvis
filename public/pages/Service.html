@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | China Tech Tours</title>
+    <link rel="stylesheet" href="/libs/tailwindcss/output.css">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        /* Additional styles for service-2.html */
+        
+        /* Timeline styles */
+        .timeline-container {
+            position: relative;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            background: linear-gradient(to bottom, #06b6d4, #8b5cf6, #10b981);
+            height: 0;
+            transition: height 1s ease;
+        }
+        
+        .timeline-step {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .timeline-step.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Carousel styles */
+        .carousel-container {
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .carousel-item {
+            flex: 0 0 33.333%;
+            padding: 0 16px;
+        }
+        
+        @media (max-width: 768px) {
+            .carousel-item {
+                flex: 0 0 100%;
+            }
+        }
+        
+        /* Certificate 3D styles */
+        .certificate-3d {
+            perspective: 1000px;
+        }
+        
+        .certificate-card-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease;
+        }
+        
+        .certificate-card-3d:hover {
+            transform: rotateY(15deg) rotateX(5deg);
+        }
+        
+        /* Global animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* CTA counter styles */
+        .counter-value {
+            font-variant-numeric: tabular-nums;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 text-white overflow-x-hidden">
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg border-b border-blue-400/30" style="background-color: #1e3a5f;">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <img src="/logo.png" alt="China Tech Tours" class="h-10 w-auto">
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="/" class="text-white hover:text-blue-100 transition-colors duration-200 font-medium">Home</a>
+                <a href="/#value" class="text-white hover:text-blue-100 transition-colors duration-200 font-medium">Why Us</a>
+                <a href="/service" class="text-blue-100 hover:text-white transition-colors duration-200 font-medium">Services</a>
+                <a href="/cases" class="text-white hover:text-blue-100 transition-colors duration-200 font-medium">Cases</a>
+                <a href="/#map" class="text-white hover:text-blue-100 transition-colors duration-200 font-medium">Network</a>
+                <a href="/#cta" class="bg-white text-blue-600 px-6 py-2.5 rounded-lg font-semibold hover:shadow-lg hover:shadow-white/25 transition-all duration-300 hover:scale-105">Get Started</a>
+            </div>
+            <button class="md:hidden text-white" id="mobile-menu-btn">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+
+
+    <!-- Section 1: The Customization Journey -->
+    <section id="journey" class="py-24 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 fade-in">
+                <div class="inline-block mb-4 px-4 py-1 bg-white/20 border border-white/40 rounded-full text-white text-sm font-semibold">
+                    THE JOURNEY
+                </div>
+                <h2 class="text-4xl md:text-5xl font-black text-white mb-4">The Customization Journey</h2>
+                <p class="text-xl text-white/90 max-w-2xl mx-auto">From initial consultation to transformative experience</p>
+            </div>
+
+            <!-- Vertical Timeline -->
+            <div class="timeline-container">
+                <div class="timeline-line" id="timelineLine"></div>
+                
+                <!-- Step 1: Needs Assessment -->
+                <div class="timeline-step mb-16 md:mb-24">
+                    <div class="md:flex items-center">
+                        <div class="md:w-1/2 md:pr-12 mb-8 md:mb-0">
+                            <div class="inline-block mb-4 px-3 py-1 bg-cyan-500/20 border border-cyan-300/50 rounded-full text-cyan-200 text-xs font-bold uppercase tracking-wider">
+                                Step 01
+                            </div>
+                            <h3 class="text-3xl font-black text-white mb-4">Needs Assessment</h3>
+                            <h4 class="text-xl text-white mb-4">Understanding Your Business Goals</h4>
+                            <p class="text-white/80 mb-6 max-w-lg">
+                                In-depth consultation to understand your business objectives, challenges, and desired outcomes from the China visit.
+                            </p>
+                            <ul class="space-y-3 max-w-lg">
+                                <li class="flex items-center text-white/90">
+                                    <div class="w-6 h-6 bg-cyan-400/30 rounded-full flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-cyan-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                    <span>Business goals analysis</span>
+                                </li>
+                                <li class="flex items-center text-white/90">
+                                    <div class="w-6 h-6 bg-cyan-400/30 rounded-full flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-cyan-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                    <span>Industry-specific requirements</span>
+                                </li>
+                                <li class="flex items-center text-white/90">
+                                    <div class="w-6 h-6 bg-cyan-400/30 rounded-full flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-cyan-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                    <span>Customization planning</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="md:w-1/2 md:pl-12">
+                            <div class="relative">
+                                <div class="absolute left-0 top-0 w-16 h-16 bg-cyan-500 rounded-full flex items-center justify-center shadow-lg shadow-cyan-500/30 z-10 transform -translate-x-1/2">
+                                    <span class="text-white font-bold">1</span>
+                                </div>
+                                <div class="ml-12 bg-gray-100 backdrop-blur-sm rounded-3xl p-8 border border-gray-200 hover:border-blue-400/50 transition-all duration-500 group shadow-xl">
+                                    <div class="h-64 bg-white rounded-2xl flex items-center justify-center">
+                                        <svg class="w-24 h-24 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Company Matching -->
+                <div class="timeline-step mb-16 md:mb-24">
+                    <div class="md:flex items-center">
+                        <div class="md:w-1/2 md:order-2 md:pl-12 mb-8 md:mb-0">
+                            <div class="inline-block mb-4 px-3 py-1 bg-blue-500/20 border border-blue-300/50 rounded-full text-blue-100 text-xs font-bold uppercase tracking-wider">
+                                Step 02
+                            </div>
+                            <h3 class="text-3xl font-black text-white mb-4">Company Matching</h3>
+                            <h4 class="text-xl text-white mb-4">Strategic Partner Identification</h4>
+                            <p class="text-white/80 mb-6 max-w-lg">
+                                Strategic alignment with the most relevant Chinese companies based on your industry, goals, and areas of interest.
+                            </p>
+                            <ul class="space-y-3 max-w-lg">
+                                <li class="flex items-center text-white/90">
+                                    <div class="w-6 h-6 bg-blue-400/30 rounded-full flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-blue-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                    <span>Industry-specific company selection</span>
+                                </li>
+                                <li class="flex items-center text-white/90">
+                                    <div class="w-6 h-6 bg-blue-400/30 rounded-full flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-blue-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                    <span>Executive-level connection building</span>
+                                </li>
+                                <li class="flex items-center text-white/90">
+                                    <div class="w-6 h-6 bg-blue-400/30 rounded-full flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-blue-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                    <span>Customized engagement opportunities</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="md:w-1/2 md:order-1 md:pr-12">
+                            <div class="relative">
+                                <div class="absolute right-0 top-0 w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/30 z-10 transform translate-x-1/2">
+                                    <span class="text-white font-bold">2</span>
+                                </div>
+                                <div class="mr-12 bg-gray-100 backdrop-blur-sm rounded-3xl p-8 border border-gray-200 hover:border-pink-400/50 transition-all duration-500 group shadow-xl">
+                                    <div class="h-64 bg-white rounded-2xl flex items-center justify-center">
+                                        <svg class="w-24 h-24 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Itinerary Customization -->
+                <div class="timeline-step mb-16 md:mb-24">
+                    <div class="md:flex items-center">
+                        <div class="md:w-1/2 md:pr-12 mb-8 md:mb-0">
+                            <div class="inline-block mb-4 px-3 py-1 bg-purple-500/20 border border-purple-300/50 rounded-full text-purple-100 text-xs font-bold uppercase tracking-wider">
+                                Step 03
+                            </div>
+                            <h3 class="text-3xl font-black text-white mb-4">Itinerary Customization</h3>
+                            <h4 class="text-xl text-white mb-4">Tailored Experience Design</h4>
+                            <p class="text-white/80 mb-6 max-w-lg">
+                                Comprehensive itinerary design with personalized activities, meetings, and learning opportunities.
+                            </p>
+                            <ul class="space-y-3 max-w-lg">
+                                <li class="flex items-center text-white/90">
+                                    <div class="w-6 h-6 bg-purple-400/30 rounded-full flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-purple-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                    <span>Personalized day-by-day schedule</span>
+                                </li>
+                                <li class="flex items-center text-white/90">
+                                    <div class="w-6 h-6 bg-purple-400/30 rounded-full flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-purple-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                    <span>Exclusive facility tours</span>
+                                </li>
+                                <li class="flex items-center text-white/90">
+                                    <div class="w-6 h-6 bg-purple-400/30 rounded-full flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-purple-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                    <span>Expert-led workshops</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="md:w-1/2 md:pl-12">
+                            <div class="relative">
+                                <div class="absolute left-0 top-0 w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center shadow-lg shadow-purple-500/30 z-10 transform -translate-x-1/2">
+                                    <span class="text-white font-bold">3</span>
+                                </div>
+                                <div class="ml-12 bg-gray-100 backdrop-blur-sm rounded-3xl p-8 border border-gray-200 hover:border-purple-400/50 transition-all duration-500 group shadow-xl">
+                                    <div class="h-64 bg-white rounded-2xl flex items-center justify-center">
+                                        <svg class="w-24 h-24 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Follow-up Support -->
+                <div class="timeline-step">
+                    <div class="md:flex items-center">
+                        <div class="md:w-1/2 md:order-2 md:pl-12 mb-8 md:mb-0">
+                            <div class="inline-block mb-4 px-3 py-1 bg-green-500/20 border border-green-300/50 rounded-full text-green-100 text-xs font-bold uppercase tracking-wider">
+                                Step 04
+                            </div>
+                            <h3 class="text-3xl font-black text-white mb-4">Follow-up Support</h3>
+                            <h4 class="text-xl text-white mb-4">Ongoing Strategic Guidance</h4>
+                            <p class="text-white/80 mb-6 max-w-lg">
+                                Ongoing support and strategic guidance to maximize the value of your China experience and maintain relationships.
+                            </p>
+                            <ul class="space-y-3 max-w-lg">
+                                <li class="flex items-center text-white/90">
+                                    <div class="w-6 h-6 bg-green-400/30 rounded-full flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-green-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                    <span>Post-visit action plan</span>
+                                </li>
+                                <li class="flex items-center text-white/90">
+                                    <div class="w-6 h-6 bg-green-400/30 rounded-full flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-green-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                    <span>Relationship maintenance</span>
+                                </li>
+                                <li class="flex items-center text-white/90">
+                                    <div class="w-6 h-6 bg-green-400/30 rounded-full flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-green-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                    <span>Continuous improvement</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="md:w-1/2 md:order-1 md:pr-12">
+                            <div class="relative">
+                                <div class="absolute right-0 top-0 w-16 h-16 bg-green-500 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 z-10 transform translate-x-1/2">
+                                    <span class="text-white font-bold">4</span>
+                                </div>
+                                <div class="mr-12 bg-gray-100 backdrop-blur-sm rounded-3xl p-8 border border-gray-200 hover:border-green-400/50 transition-all duration-500 group shadow-xl">
+                                    <div class="h-64 bg-white rounded-2xl flex items-center justify-center">
+                                        <svg class="w-24 h-24 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Business Programs -->
+    <section id="programs" class="py-24 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-blue-400/30 to-transparent"></div>
+        
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16 fade-in">
+                <div class="inline-block mb-4 px-4 py-1 bg-white/20 border border-white/40 rounded-full text-white text-sm font-semibold">
+                    BUSINESS PROGRAMS
+                </div>
+                <h2 class="text-4xl md:text-5xl font-black text-white mb-4">Business Programs</h2>
+                <p class="text-xl text-white/90 max-w-2xl mx-auto">Comprehensive business programs tailored for international executives</p>
+            </div>
+
+            <!-- Horizontal Carousel -->
+            <div class="carousel-container mb-8">
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- Program 1: Tech Innovation -->
+                    <div class="carousel-item">
+                        <div class="relative group h-full">
+                            <div class="absolute -inset-0.5 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+                            <div class="relative bg-white/90 rounded-3xl p-8 border border-white/50 h-full shadow-xl">
+                                <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-bl-3xl"></div>
+                                <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-cyan-500/25">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-3">Advanced Manufacturing</h3>
+                                <p class="text-gray-700 leading-relaxed mb-6">
+                                    Explore China's cutting-edge manufacturing technologies, smart factories, and industrial innovation that are driving global production efficiency.
+                                </p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-cyan-400 font-semibold">7-day program</span>
+                                    <button class="bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 hover:scale-105">
+                                        Learn More
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Program 2: Digital Transformation -->
+                    <div class="carousel-item">
+                        <div class="relative group h-full">
+                            <div class="absolute -inset-0.5 bg-gradient-to-br from-purple-500 to-pink-600 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+                            <div class="relative bg-white/90 rounded-3xl p-8 border border-white/50 h-full shadow-xl">
+                                <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-bl-3xl"></div>
+                                <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-purple-500/25">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 4.415l-5 5a2 2 0 01-2.828 0l-5-5c-1.782-1.782-.674-3.154-1.415-4.415L12 10.172V5l-1-1z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-3">Internet & Influencer Economy</h3>
+                                <p class="text-gray-700 leading-relaxed mb-6">
+                                    Discover how China's digital ecosystem, social media platforms, and influencer marketing are reshaping consumer behavior and brand engagement.
+                                </p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-purple-400 font-semibold">7-day program</span>
+                                    <button class="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105">
+                                        Learn More
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Program 3: E-commerce Strategy -->
+                    <div class="carousel-item">
+                        <div class="relative group h-full">
+                            <div class="absolute -inset-0.5 bg-gradient-to-br from-green-500 to-emerald-600 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+                            <div class="relative bg-white/90 rounded-3xl p-8 border border-white/50 h-full shadow-xl">
+                                <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-bl-3xl"></div>
+                                <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-green-500/25">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-3">AI & Hard Tech</h3>
+                                <p class="text-gray-700 leading-relaxed mb-6">
+                                    Dive into China's advancements in artificial intelligence, robotics, semiconductor technology, and other hard tech innovations transforming industries.
+                                </p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-green-400 font-semibold">7-day program</span>
+                                    <button class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg hover:shadow-green-500/25 transition-all duration-300 hover:scale-105">
+                                        Learn More
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Program 4: AI & Machine Learning -->
+                    <div class="carousel-item">
+                        <div class="relative group h-full">
+                            <div class="absolute -inset-0.5 bg-gradient-to-br from-orange-500 to-red-600 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+                            <div class="relative bg-white/90 rounded-3xl p-8 border border-white/50 h-full shadow-xl">
+                                <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-bl-3xl"></div>
+                                <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-orange-500/25">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-3">AI & Machine Learning</h3>
+                                <p class="text-gray-700 leading-relaxed mb-6">
+                                    Explore China's advancements in artificial intelligence and machine learning applications across industries.
+                                </p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-orange-400 font-semibold">7-day program</span>
+                                    <button class="bg-gradient-to-r from-orange-500 to-red-600 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-300 hover:scale-105">
+                                        Learn More
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Program 5: Supply Chain Management -->
+                    <div class="carousel-item">
+                        <div class="relative group h-full">
+                            <div class="absolute -inset-0.5 bg-gradient-to-br from-amber-500 to-yellow-600 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+                            <div class="relative bg-white/90 rounded-3xl p-8 border border-white/50 h-full shadow-xl">
+                                <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-amber-500/20 to-yellow-500/20 rounded-bl-3xl"></div>
+                                <div class="w-16 h-16 bg-gradient-to-br from-amber-500 to-yellow-600 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-amber-500/25">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-3">Supply Chain Management</h3>
+                                <p class="text-gray-700 leading-relaxed mb-6">
+                                    Learn from China's efficient supply chain systems and logistics innovations that power global trade.
+                                </p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-amber-400 font-semibold">7-day program</span>
+                                    <button class="bg-gradient-to-r from-amber-500 to-yellow-600 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg hover:shadow-amber-500/25 transition-all duration-300 hover:scale-105">
+                                        Learn More
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Program 6: Financial Technology -->
+                    <div class="carousel-item">
+                        <div class="relative group h-full">
+                            <div class="absolute -inset-0.5 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+                            <div class="relative bg-white/90 rounded-3xl p-8 border border-white/50 h-full shadow-xl">
+                                <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-bl-3xl"></div>
+                                <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-indigo-500/25">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-3">Financial Technology</h3>
+                                <p class="text-gray-700 leading-relaxed mb-6">
+                                    Explore China's innovative fintech solutions and digital payment ecosystems revolutionizing finance.
+                                </p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-indigo-400 font-semibold">7-day program</span>
+                                    <button class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg hover:shadow-indigo-500/25 transition-all duration-300 hover:scale-105">
+                                        Learn More
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carousel Controls -->
+            <div class="flex justify-center space-x-4 mt-8">
+                <button id="prevBtn" class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center hover:bg-cyan-500 transition-colors duration-300">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                <button id="nextBtn" class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center hover:bg-cyan-500 transition-colors duration-300">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Credentials & Certification -->
+    <section id="credentials" class="py-24 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 fade-in">
+                <div class="inline-block mb-4 px-4 py-1 bg-white/20 border border-white/40 rounded-full text-white text-sm font-semibold">
+                    CREDENTIALS
+                </div>
+                <h2 class="text-4xl md:text-5xl font-black text-white mb-4">Credentials & Certification</h2>
+                <p class="text-xl text-white/90 max-w-2xl mx-auto">Recognized certifications and official credentials from leading Chinese institutions</p>
+            </div>
+
+            <!-- 3D Certificate Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Certificate 1: Completion -->
+                <div class="certificate-3d">
+                    <div class="certificate-card-3d relative group h-full">
+                        <div class="absolute -inset-0.5 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+                        <div class="relative bg-white rounded-3xl p-8 border border-gray-200 h-full transform transition-transform duration-500 hover:scale-105 shadow-xl">
+                            <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-bl-3xl"></div>
+                            <div class="text-center">
+                                <div class="w-20 h-20 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-cyan-500/25 mx-auto">
+                                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-black text-gray-900 mb-4">Certificate of Completion</h3>
+                                <p class="text-gray-600 mb-6">
+                                    Official certification from participating Chinese companies and institutions upon program completion.
+                                </p>
+                                <div class="inline-block px-4 py-2 bg-cyan-100 border border-cyan-300 rounded-full text-cyan-600 text-sm font-semibold">
+                                    Industry Recognized
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate 2: Executive Education -->
+                <div class="certificate-3d">
+                    <div class="certificate-card-3d relative group h-full">
+                        <div class="absolute -inset-0.5 bg-gradient-to-br from-purple-500 to-pink-600 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+                        <div class="relative bg-white rounded-3xl p-8 border border-gray-200 h-full transform transition-transform duration-500 hover:scale-105 shadow-xl">
+                            <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-bl-3xl"></div>
+                            <div class="text-center">
+                                <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-purple-500/25 mx-auto">
+                                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-black text-gray-900 mb-4">Executive Education Certificate</h3>
+                                <p class="text-gray-600 mb-6">
+                                    Advanced executive education certification from top Chinese business schools and universities.
+                                </p>
+                                <div class="inline-block px-4 py-2 bg-purple-100 border border-purple-300 rounded-full text-purple-600 text-sm font-semibold">
+                                    Academic Credential
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate 3: Industry Partnership -->
+                <div class="certificate-3d">
+                    <div class="certificate-card-3d relative group h-full">
+                        <div class="absolute -inset-0.5 bg-gradient-to-br from-green-500 to-emerald-600 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+                        <div class="relative bg-white rounded-3xl p-8 border border-gray-200 h-full transform transition-transform duration-500 hover:scale-105 shadow-xl">
+                            <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-bl-3xl"></div>
+                            <div class="text-center">
+                                <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-green-500/25 mx-auto">
+                                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-black text-gray-900 mb-4">Industry Partnership Badge</h3>
+                                <p class="text-gray-600 mb-6">
+                                    Exclusive partnership badges from leading Chinese tech companies and industry associations.
+                                </p>
+                                <div class="inline-block px-4 py-2 bg-green-100 border border-green-300 rounded-full text-green-600 text-sm font-semibold">
+                                    Partnership Recognition
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" class="py-24 px-6 relative overflow-hidden">
+        <div class="absolute inset-0">
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-400/20 via-blue-500/20 to-blue-600/20"></div>
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="bg-white rounded-3xl p-12 md:p-16 border border-gray-200 text-center fade-in shadow-2xl">
+                <div class="inline-block mb-6 px-4 py-2 bg-blue-100 border border-blue-300 rounded-full text-blue-600 text-sm font-semibold">
+                    START YOUR JOURNEY
+                </div>
+                <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-6">Ready to Transform Your Business?</h2>
+                <p class="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">Join executives and innovators from around the world who have gained unprecedented access to China's tech ecosystem.</p>
+                
+                <!-- Success Metrics -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                    <div class="text-center">
+                        <div class="text-4xl font-black text-cyan-400 counter-value" data-target="500">0</div>
+                        <div class="text-gray-600 mt-2">Executives</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-black text-purple-400 counter-value" data-target="100">0</div>
+                        <div class="text-gray-600 mt-2">Companies</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-black text-green-400 counter-value" data-target="98">0</div>
+                        <div class="text-gray-600 mt-2">Satisfaction</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-black text-pink-400 counter-value" data-target="25">0</div>
+                        <div class="text-gray-600 mt-2">Countries</div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+                    <button class="bg-blue-500 text-white px-10 py-4 rounded-xl text-lg font-bold hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-300 hover:scale-105 flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                        Book Your Tour
+                    </button>
+                    <button class="border-2 border-blue-500 text-blue-600 px-10 py-4 rounded-xl text-lg font-bold hover:bg-blue-50 transition-all duration-300">
+                        Contact Us
+                    </button>
+                </div>
+
+                <div class="flex items-center justify-center space-x-8 text-gray-700">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span>No commitment required</span>
+                    </div>
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span>Free consultation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="px-6 border-t border-blue-400/30 bg-blue-600" style="height: 140px; min-height: 140px; max-height: 140px;">
+        <div class="max-w-7xl mx-auto h-full flex flex-col justify-center">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-4">
+                <div class="flex items-center space-x-2 mb-2 md:mb-0">
+                    <img src="/logo.png" alt="China Tech Tours" class="h-10 w-auto">
+                </div>
+                <div class="flex items-center space-x-8 text-white/90 text-sm">
+                    <a href="/" class="hover:text-white transition-colors duration-200">Home</a>
+                    <a href="/#value" class="hover:text-white transition-colors duration-200">Why Us</a>
+                    <a href="/service" class="hover:text-white transition-colors duration-200">Services</a>
+                    <a href="/cases" class="hover:text-white transition-colors duration-200">Cases</a>
+                    <a href="/#map" class="hover:text-white transition-colors duration-200">Network</a>
+                    <a href="/#cta" class="hover:text-white transition-colors duration-200">Contact</a>
+                </div>
+            </div>
+            <div class="text-center text-white/80 text-sm">
+                © 2024 China Tech Tours. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+    <script>
+        // Timeline animation
+        function animateTimeline() {
+            const timelineLine = document.getElementById('timelineLine');
+            const steps = document.querySelectorAll('.timeline-step');
+            
+            let maxHeight = 0;
+            steps.forEach(step => {
+                maxHeight += step.offsetHeight + 32; // Add space between steps
+            });
+            
+            timelineLine.style.height = maxHeight + 'px';
+            
+            // Intersection Observer for steps
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            steps.forEach(step => observer.observe(step));
+        }
+        
+        // Carousel functionality
+        function initCarousel() {
+            const track = document.getElementById('carouselTrack');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const items = document.querySelectorAll('.carousel-item');
+            
+            let currentIndex = 0;
+            const itemWidth = 100 / 3; // 3 items per view
+            
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
+                }
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                if (currentIndex < items.length - 3) {
+                    currentIndex++;
+                    updateCarousel();
+                }
+            });
+            
+            function updateCarousel() {
+                track.style.transform = `translateX(-${currentIndex * itemWidth}%)`;
+            }
+        }
+        
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter-value');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = parseInt(counter.dataset.target);
+                        const duration = 2000;
+                        const step = target / (duration / 16);
+                        let current = 0;
+                        
+                        const updateCounter = () => {
+                            current += step;
+                            if (current < target) {
+                                counter.textContent = Math.floor(current);
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                counter.textContent = target;
+                            }
+                        };
+                        
+                        updateCounter();
+                        observer.unobserve(counter);
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+            
+            counters.forEach(counter => observer.observe(counter));
+        }
+        
+        // Fade-in animations
+        function initFadeIn() {
+            const elements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            elements.forEach(element => observer.observe(element));
+        }
+        
+        // Initialize all functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            animateTimeline();
+            initCarousel();
+            animateCounters();
+            initFadeIn();
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', animateTimeline);
+    </script>
+</body>
+</html>
