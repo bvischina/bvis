@@ -1,0 +1,4 @@
+/service /pages/Service.html 200
+/service/ /pages/Service.html 200
+/cases /pages/cases.html 200
+/cases/ /pages/cases.html 200
