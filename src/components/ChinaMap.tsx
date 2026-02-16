@@ -4,7 +4,9 @@ import * as THREE from 'three';
 import { MapMarkers } from './MapMarkers';
 
 // 配置本地 Draco 解码器路径
-useGLTF.setDecoderPath('/draco/');
+// useGLTF.setDecoderPath('/draco/');
+// 使用谷歌CDN
+useGLTF.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
 
 export const ChinaMap: React.FC = () => {
   const { scene } = useGLTF('/china-map-draco.glb');
