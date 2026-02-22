@@ -344,7 +344,7 @@ body {
 }
 
 .bg-white {
-    background-color:rgb(255,255,240,0.97)!important;
+    background-color:rgba(255,255,240,0.97)!important;
 }
 
 .text-cyan-400{
